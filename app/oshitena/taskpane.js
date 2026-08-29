@@ -4,14 +4,14 @@
 (function () {
   "use strict";
 
-  var STORAGE_KEY = "oshitena-settings-v1";
+  var STORAGE_KEY = "oshitena-settings-v2";
 
   var state = {
-    sizeMm: 12,
-    label: "",
-    color: "D93A22",
-    dash: "dash",
-    strokePt: 1,
+    sizeMm: 15,
+    caption: "認印",
+    color: "7F7F7F",
+    dash: "sysDot",
+    strokePt: 0.75,
     offsetXmm: 0,
     offsetYmm: 0,
     count: 1,
@@ -53,16 +53,28 @@
     });
   }
 
+  function syncPresetChips() {
+    var chips = $("preset-chips").querySelectorAll("[data-preset]");
+    chips.forEach(function (chip) {
+      var match =
+        Number(chip.getAttribute("data-size")) === state.sizeMm &&
+        chip.getAttribute("data-caption") === state.caption;
+      chip.setAttribute("aria-pressed", match ? "true" : "false");
+    });
+  }
+
   function renderPreview() {
     var canvas = $("preview");
     var ctx = canvas.getContext("2d");
     var scale = 3.2; // 1mm → 3.2px
     var d = state.sizeMm * scale;
     var pad = 8;
-    canvas.width = Math.max(80, Math.ceil(d + pad * 2));
-    canvas.height = canvas.width;
+    var captionSpace = state.caption ? 18 : 0;
+    canvas.width = Math.max(90, Math.ceil(d + pad * 2));
+    canvas.height = Math.ceil(d + pad * 2 + captionSpace);
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-    var cxy = canvas.width / 2;
+    var cx = canvas.width / 2;
+    var cy = pad + d / 2;
     var r = d / 2;
     ctx.strokeStyle = "#" + state.color;
     ctx.lineWidth = Math.max(1, state.strokePt * scale * 0.353);
@@ -70,22 +82,26 @@
     else if (state.dash === "sysDot") ctx.setLineDash([2, 3]);
     else ctx.setLineDash([]);
     ctx.beginPath();
-    ctx.arc(cxy, cxy, r, 0, Math.PI * 2);
+    ctx.arc(cx, cy, r, 0, Math.PI * 2);
     ctx.stroke();
-    if (state.label) {
-      var fontPt = OshitenaOoxml.labelFontPt(state.sizeMm, state.label);
+    if (state.caption) {
       ctx.setLineDash([]);
       ctx.fillStyle = "#" + state.color;
-      ctx.font = fontPt * scale * 0.353 + 'px "Yu Mincho", "游明朝", serif';
+      var fontPx = OshitenaOoxml.CAPTION_FONT_PT * scale * 0.353;
+      ctx.font = fontPx + 'px "Yu Mincho", "游明朝", serif';
       ctx.textAlign = "center";
-      ctx.textBaseline = "middle";
-      ctx.fillText(state.label, cxy, cxy);
+      ctx.textBaseline = "top";
+      ctx.fillText(
+        state.caption,
+        cx,
+        cy + r + OshitenaOoxml.CAPTION_GAP_MM * scale + 2
+      );
     }
   }
 
   function refreshUi() {
-    syncChips("size-chips", "size", state.sizeMm);
-    syncChips("label-chips", "label", state.label);
+    syncPresetChips();
+    syncChips("caption-chips", "caption", state.caption);
     syncChips("color-chips", "color", state.color);
     $("size-custom").value = state.sizeMm;
     $("dash-style").value = state.dash;
@@ -119,7 +135,7 @@
           color: state.color,
           dash: state.dash,
           strokePt: state.strokePt,
-          label: state.label,
+          caption: state.caption,
           offsetXmm: state.offsetXmm,
           offsetYmm: state.offsetYmm,
         },
@@ -147,32 +163,35 @@
   }
 
   function wireEvents() {
-    $("size-chips").addEventListener("click", function (e) {
-      var chip = e.target.closest("[data-size]");
+    $("preset-chips").addEventListener("click", function (e) {
+      var chip = e.target.closest("[data-preset]");
       if (!chip) return;
       state.sizeMm = Number(chip.getAttribute("data-size"));
+      state.caption = chip.getAttribute("data-caption");
+      $("caption-custom").value = "";
       refreshUi();
       saveSettings();
     });
 
     $("size-custom").addEventListener("change", function () {
-      state.sizeMm = clampNumber(this.value, 6, 60, 12);
+      state.sizeMm = clampNumber(this.value, 6, 60, 15);
       refreshUi();
       saveSettings();
     });
 
-    $("label-chips").addEventListener("click", function (e) {
-      var chip = e.target.closest("[data-label]");
+    $("caption-chips").addEventListener("click", function (e) {
+      var chip = e.target.closest("[data-caption]");
       if (!chip) return;
-      state.label = chip.getAttribute("data-label");
-      $("label-custom").value = "";
+      state.caption = chip.getAttribute("data-caption");
+      $("caption-custom").value = "";
       refreshUi();
       saveSettings();
     });
 
-    $("label-custom").addEventListener("input", function () {
-      state.label = this.value.trim();
-      syncChips("label-chips", "label", state.label);
+    $("caption-custom").addEventListener("input", function () {
+      state.caption = this.value.trim();
+      syncChips("caption-chips", "caption", state.caption);
+      syncPresetChips();
       renderPreview();
       saveSettings();
     });

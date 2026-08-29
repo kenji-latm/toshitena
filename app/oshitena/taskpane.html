@@ -194,55 +194,51 @@
 
   <main>
     <section>
-      <h2>サイズ（直径）</h2>
-      <div class="chips" id="size-chips" role="group" aria-label="サイズプリセット">
-        <button type="button" class="chip" data-size="10.5">10.5<small>㎜ 認印</small></button>
-        <button type="button" class="chip" data-size="12">12<small>㎜ 銀行印</small></button>
-        <button type="button" class="chip" data-size="13.5">13.5<small>㎜</small></button>
-        <button type="button" class="chip" data-size="15">15<small>㎜ 実印</small></button>
-        <button type="button" class="chip" data-size="18">18<small>㎜ 法人</small></button>
-        <button type="button" class="chip" data-size="21">21<small>㎜</small></button>
+      <h2>種類</h2>
+      <div class="chips" id="preset-chips" role="group" aria-label="種類プリセット">
+        <button type="button" class="chip" data-size="18" data-caption="実印" data-preset="houjin">法人実印<small> 18㎜</small></button>
+        <button type="button" class="chip" data-size="18" data-caption="実印" data-preset="kojin">個人実印<small> 18㎜</small></button>
+        <button type="button" class="chip" data-size="15" data-caption="認印" data-preset="mitome">認印<small> 15㎜</small></button>
       </div>
       <div class="row">
-        <label for="size-custom">自由入力</label>
+        <label for="size-custom">直径</label>
         <input type="number" id="size-custom" min="6" max="60" step="0.5"> mm
       </div>
     </section>
 
     <section>
-      <h2>円の中の文字</h2>
-      <div class="chips" id="label-chips" role="group" aria-label="ラベル">
-        <button type="button" class="chip" data-label="">なし</button>
-        <button type="button" class="chip" data-label="印">印</button>
-        <button type="button" class="chip" data-label="㊞">㊞</button>
-        <button type="button" class="chip" data-label="実印">実印</button>
-        <button type="button" class="chip" data-label="捨印">捨印</button>
+      <h2>円の下の文字</h2>
+      <div class="chips" id="caption-chips" role="group" aria-label="円の下の文字">
+        <button type="button" class="chip" data-caption="">なし</button>
+        <button type="button" class="chip" data-caption="実印">実印</button>
+        <button type="button" class="chip" data-caption="認印">認印</button>
+        <button type="button" class="chip" data-caption="銀行印">銀行印</button>
       </div>
       <div class="row">
-        <input type="text" id="label-custom" placeholder="自由入力（例：銀行印）" maxlength="6">
+        <input type="text" id="caption-custom" placeholder="自由入力（例：届出印）" maxlength="8">
       </div>
     </section>
 
     <section>
       <h2>線</h2>
       <div class="chips" id="color-chips" role="group" aria-label="色">
-        <button type="button" class="color-chip" data-color="D93A22" style="background:#d93a22" title="朱"></button>
-        <button type="button" class="color-chip" data-color="FF0000" style="background:#ff0000" title="赤"></button>
-        <button type="button" class="color-chip" data-color="000000" style="background:#000000" title="黒"></button>
         <button type="button" class="color-chip" data-color="7F7F7F" style="background:#7f7f7f" title="グレー"></button>
+        <button type="button" class="color-chip" data-color="A6A6A6" style="background:#a6a6a6" title="薄いグレー"></button>
+        <button type="button" class="color-chip" data-color="000000" style="background:#000000" title="黒"></button>
+        <button type="button" class="color-chip" data-color="D93A22" style="background:#d93a22" title="朱"></button>
       </div>
       <div class="row">
         <label for="dash-style">種類</label>
         <select id="dash-style">
-          <option value="dash" selected>破線</option>
-          <option value="sysDot">点線</option>
+          <option value="sysDot" selected>点線</option>
+          <option value="dash">破線</option>
           <option value="solid">実線</option>
         </select>
         <label for="stroke-weight">太さ</label>
         <select id="stroke-weight">
           <option value="0.5">0.5pt</option>
-          <option value="0.75">0.75pt</option>
-          <option value="1" selected>1pt</option>
+          <option value="0.75" selected>0.75pt</option>
+          <option value="1">1pt</option>
           <option value="1.5">1.5pt</option>
           <option value="2">2pt</option>
         </select>
@@ -260,7 +256,7 @@
       <div class="row">
         <label for="count">個数</label>
         <input type="number" id="count" value="1" min="1" max="10" step="1"> 個
-        <span style="color:var(--muted);font-size:11.5px">（2個以上は横並び・捨印欄用）</span>
+        <span style="color:var(--muted);font-size:11.5px">（2個以上は横並びで挿入）</span>
       </div>
     </section>
 

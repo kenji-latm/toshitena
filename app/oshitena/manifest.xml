@@ -11,7 +11,7 @@
   <ProviderName>kenji-latm</ProviderName>
   <DefaultLocale>ja-JP</DefaultLocale>
   <DisplayName DefaultValue="オシテナ（捺印欄スタンプ）"/>
-  <Description DefaultValue="押印欄の点線円をワンクリックで挿入するWordアドイン。サイズ・線種・円内の文字を選んで、委任状や契約書の押印欄・捨印欄をすばやく作れます。"/>
+  <Description DefaultValue="押印欄の点線円をワンクリックで挿入するWordアドイン。法人実印・個人実印・認印のプリセットから選ぶと、控えめなグレーの点線円と「実印」「認印」などの小さな表記が入り、委任状や契約書の押印欄をすばやく作れます。"/>
   <IconUrl DefaultValue="https://kenji-latm.github.io/toshitena/oshitena/assets/icon-32.png"/>
   <HighResolutionIconUrl DefaultValue="https://kenji-latm.github.io/toshitena/oshitena/assets/icon-64.png"/>
   <SupportUrl DefaultValue="https://github.com/kenji-latm/toshitena"/>

@@ -7,15 +7,18 @@
 
 | ファイル | 役割 |
 |---|---|
-| `taskpane.html` / `taskpane.js` | タスクペインUI（サイズ・文字・線・個数を選んで挿入） |
-| `ooxml.js` | 点線円のOOXML（DrawingML＋VMLフォールバック）を生成 |
+| `taskpane.html` / `taskpane.js` | タスクペインUI（種類・サイズ・円の下の文字・線・個数を選んで挿入） |
+| `ooxml.js` | 点線円＋キャプションのOOXML（DrawingML＋VMLフォールバック）を生成 |
 | `manifest.xml` | アドインのマニフェスト（Wordに読み込ませる定義ファイル） |
 | `index.html` | 配布用ランディングページ |
 | `assets/icon-*.png` | リボン・ストア用アイコン（`tools/make-icons.mjs` で再生成可能） |
 
 ## 仕組み
 
-- Office.js（Word JavaScript API）の `insertOoxml` で、カーソル位置に浮動図形（楕円）を挿入する
+- Office.js（Word JavaScript API）の `insertOoxml` で、カーソル位置に浮動図形を挿入する
+- 1個の押印欄＝円（楕円図形）＋円の下のキャプション（枠なしテキストボックス）の2図形。
+  既定は控えめなグレーの点線円で、種類プリセット（法人実印18㎜・個人実印18㎜・認印15㎜）を
+  選ぶと円の下に小さく「実印」「認印」が入る
 - WordApi 1.1 の範囲だけを使っているため、**Word 2016以降・Mac・Word on the web すべてで動く**
 - 挿入されるのはWord標準の図形なので、手描きの円と同様にドラッグ・削除でき、
   電子署名前の一括削除（denshi-shomei-shitagoshirae）でもそのまま消せる
