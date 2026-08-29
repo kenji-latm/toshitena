@@ -1,0 +1,281 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>オシテナ</title>
+  <script src="https://appsforoffice.microsoft.com/lib/1/hosted/office.js"></script>
+  <style>
+    :root {
+      --brand: #9eca45;
+      --brand-dark: #55731b;
+      --brand-soft: #eef7d9;
+      --ink: #1d1d1f;
+      --muted: #6e6e73;
+      --line: #d2d2d7;
+      --line-soft: #e8e8ed;
+      --paper: #ffffff;
+      --bg: #f5f5f7;
+      --red: #b42318;
+      --shu: #d93a22;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      color: var(--ink);
+      background: var(--bg);
+      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Yu Gothic UI", "Yu Gothic", "Hiragino Kaku Gothic ProN", Meiryo, sans-serif;
+      font-size: 13px;
+      line-height: 1.6;
+    }
+
+    header {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      padding: 12px 14px;
+      background: var(--paper);
+      border-bottom: 1px solid var(--line-soft);
+      position: sticky;
+      top: 0;
+      z-index: 5;
+    }
+
+    .brand-mark {
+      inline-size: 26px;
+      block-size: 26px;
+      border-radius: 999px;
+      border: 2px dashed var(--shu);
+      display: grid;
+      place-items: center;
+      color: var(--shu);
+      font-size: 12px;
+      font-weight: 700;
+      flex: none;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 15px;
+      font-weight: 700;
+      letter-spacing: 0.01em;
+    }
+
+    header .sub {
+      margin-left: auto;
+      color: var(--muted);
+      font-size: 11px;
+    }
+
+    main { padding: 12px 14px 20px; }
+
+    section {
+      background: var(--paper);
+      border: 1px solid var(--line-soft);
+      border-radius: 12px;
+      padding: 11px 12px;
+      margin-bottom: 10px;
+    }
+
+    section h2 {
+      margin: 0 0 7px;
+      font-size: 11.5px;
+      font-weight: 700;
+      color: var(--muted);
+      letter-spacing: 0.04em;
+    }
+
+    .chips { display: flex; flex-wrap: wrap; gap: 6px; }
+
+    .chip {
+      border: 1px solid var(--line);
+      background: #fff;
+      color: var(--ink);
+      border-radius: 999px;
+      padding: 4px 11px;
+      font-size: 12.5px;
+      cursor: pointer;
+      line-height: 1.4;
+    }
+
+    .chip[aria-pressed="true"] {
+      background: var(--brand-soft);
+      border-color: var(--brand-dark);
+      color: var(--brand-dark);
+      font-weight: 700;
+    }
+
+    .row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 8px;
+      flex-wrap: wrap;
+    }
+
+    .row label { color: var(--muted); font-size: 12px; }
+
+    input[type="number"], input[type="text"], select {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 5px 8px;
+      font: inherit;
+      font-size: 13px;
+      background: #fff;
+      color: var(--ink);
+    }
+
+    input[type="number"] { width: 70px; }
+    input[type="text"] { width: 100%; }
+
+    .color-chip {
+      inline-size: 26px;
+      block-size: 26px;
+      border-radius: 999px;
+      border: 2px solid transparent;
+      cursor: pointer;
+      padding: 0;
+    }
+
+    .color-chip[aria-pressed="true"] {
+      border-color: var(--ink);
+      box-shadow: 0 0 0 2px #fff inset;
+    }
+
+    .preview-wrap {
+      display: grid;
+      place-items: center;
+      padding: 8px 0 2px;
+    }
+
+    #preview { display: block; }
+
+    .insert-btn {
+      display: block;
+      width: 100%;
+      border: 0;
+      border-radius: 12px;
+      background: var(--brand-dark);
+      color: #fff;
+      font-size: 15px;
+      font-weight: 700;
+      padding: 12px;
+      cursor: pointer;
+    }
+
+    .insert-btn:active { opacity: 0.85; }
+    .insert-btn:disabled { background: var(--line); cursor: default; }
+
+    .status {
+      min-height: 20px;
+      margin-top: 8px;
+      font-size: 12px;
+      color: var(--muted);
+      text-align: center;
+    }
+
+    .status.err { color: var(--red); }
+
+    .hint {
+      color: var(--muted);
+      font-size: 11.5px;
+      margin: 10px 2px 0;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <span class="brand-mark">印</span>
+    <h1>オシテナ</h1>
+    <span class="sub">捺印欄スタンプ</span>
+  </header>
+
+  <main>
+    <section>
+      <h2>サイズ（直径）</h2>
+      <div class="chips" id="size-chips" role="group" aria-label="サイズプリセット">
+        <button type="button" class="chip" data-size="10.5">10.5<small>㎜ 認印</small></button>
+        <button type="button" class="chip" data-size="12">12<small>㎜ 銀行印</small></button>
+        <button type="button" class="chip" data-size="13.5">13.5<small>㎜</small></button>
+        <button type="button" class="chip" data-size="15">15<small>㎜ 実印</small></button>
+        <button type="button" class="chip" data-size="18">18<small>㎜ 法人</small></button>
+        <button type="button" class="chip" data-size="21">21<small>㎜</small></button>
+      </div>
+      <div class="row">
+        <label for="size-custom">自由入力</label>
+        <input type="number" id="size-custom" min="6" max="60" step="0.5"> mm
+      </div>
+    </section>
+
+    <section>
+      <h2>円の中の文字</h2>
+      <div class="chips" id="label-chips" role="group" aria-label="ラベル">
+        <button type="button" class="chip" data-label="">なし</button>
+        <button type="button" class="chip" data-label="印">印</button>
+        <button type="button" class="chip" data-label="㊞">㊞</button>
+        <button type="button" class="chip" data-label="実印">実印</button>
+        <button type="button" class="chip" data-label="捨印">捨印</button>
+      </div>
+      <div class="row">
+        <input type="text" id="label-custom" placeholder="自由入力（例：銀行印）" maxlength="6">
+      </div>
+    </section>
+
+    <section>
+      <h2>線</h2>
+      <div class="chips" id="color-chips" role="group" aria-label="色">
+        <button type="button" class="color-chip" data-color="D93A22" style="background:#d93a22" title="朱"></button>
+        <button type="button" class="color-chip" data-color="FF0000" style="background:#ff0000" title="赤"></button>
+        <button type="button" class="color-chip" data-color="000000" style="background:#000000" title="黒"></button>
+        <button type="button" class="color-chip" data-color="7F7F7F" style="background:#7f7f7f" title="グレー"></button>
+      </div>
+      <div class="row">
+        <label for="dash-style">種類</label>
+        <select id="dash-style">
+          <option value="dash" selected>破線</option>
+          <option value="sysDot">点線</option>
+          <option value="solid">実線</option>
+        </select>
+        <label for="stroke-weight">太さ</label>
+        <select id="stroke-weight">
+          <option value="0.5">0.5pt</option>
+          <option value="0.75">0.75pt</option>
+          <option value="1" selected>1pt</option>
+          <option value="1.5">1.5pt</option>
+          <option value="2">2pt</option>
+        </select>
+      </div>
+    </section>
+
+    <section>
+      <h2>位置と個数</h2>
+      <div class="row">
+        <label for="offset-x">右へ</label>
+        <input type="number" id="offset-x" value="0" step="0.5"> mm
+        <label for="offset-y">下へ</label>
+        <input type="number" id="offset-y" value="0" step="0.5"> mm
+      </div>
+      <div class="row">
+        <label for="count">個数</label>
+        <input type="number" id="count" value="1" min="1" max="10" step="1"> 個
+        <span style="color:var(--muted);font-size:11.5px">（2個以上は横並び・捨印欄用）</span>
+      </div>
+    </section>
+
+    <section>
+      <h2>プレビュー</h2>
+      <div class="preview-wrap"><canvas id="preview" width="120" height="120"></canvas></div>
+    </section>
+
+    <button type="button" class="insert-btn" id="insert-btn" disabled>カーソル位置に挿入</button>
+    <div class="status" id="status">読み込み中…</div>
+
+    <p class="hint">挿入した円はふつうのWord図形です。ドラッグで微調整でき、Deleteで消せます。文字カーソルを置いた位置（アンカー）を基準に配置されます。</p>
+  </main>
+
+  <script src="ooxml.js"></script>
+  <script src="taskpane.js"></script>
+</body>
+</html>

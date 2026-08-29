@@ -25,3 +25,7 @@ npm run scrape
 ## 原典
 
 - https://www.moj.go.jp/MINJI/minji60.html
+
+## 同居コンテンツ
+
+- `app/oshitena/` … オシテナ（捺印欄スタンプ）。押印欄の点線円をワンクリックで挿入するWordアドインの試作版。詳細は [app/oshitena/README.md](app/oshitena/README.md)

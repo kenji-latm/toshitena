@@ -1,0 +1,157 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>オシテナ – 捺印欄スタンプ（Wordアドイン）</title>
+  <style>
+    :root {
+      --brand: #9eca45;
+      --brand-dark: #55731b;
+      --brand-soft: #eef7d9;
+      --ink: #1d1d1f;
+      --muted: #6e6e73;
+      --line: #d2d2d7;
+      --line-soft: #e8e8ed;
+      --paper: #ffffff;
+      --bg: #f5f5f7;
+      --link: #0066cc;
+      --shu: #d93a22;
+      --shadow: 0 16px 42px rgba(0, 0, 0, 0.06);
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      color: var(--ink);
+      background: var(--bg);
+      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Yu Gothic UI", "Yu Gothic", "Hiragino Kaku Gothic ProN", Meiryo, sans-serif;
+      font-size: 17px;
+      line-height: 1.62;
+    }
+
+    a { color: var(--link); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    .topbar {
+      display: flex;
+      align-items: center;
+      gap: 11px;
+      padding: 18px clamp(20px, 4vw, 56px);
+      border-bottom: 1px solid rgba(210, 210, 215, 0.85);
+      background: rgba(255, 255, 255, 0.98);
+    }
+
+    .brand-mark {
+      inline-size: 30px;
+      block-size: 30px;
+      border-radius: 999px;
+      border: 2px dashed var(--shu);
+      display: grid;
+      place-items: center;
+      color: var(--shu);
+      font-size: 13px;
+      font-weight: 750;
+    }
+
+    .brand { font-size: 15px; font-weight: 650; color: #2b2b2d; }
+
+    main {
+      width: min(760px, calc(100% - 36px));
+      margin: 44px auto 64px;
+    }
+
+    h1 { font-size: clamp(28px, 4.4vw, 40px); margin: 0 0 8px; letter-spacing: 0.01em; }
+    .lead { color: var(--muted); margin: 0 0 28px; font-size: 18px; }
+
+    .card {
+      background: var(--paper);
+      border: 1px solid var(--line-soft);
+      border-radius: 18px;
+      padding: 26px 28px;
+      margin-bottom: 18px;
+      box-shadow: var(--shadow);
+    }
+
+    .card h2 { margin: 0 0 12px; font-size: 21px; }
+    .card p { margin: 0 0 10px; }
+    .card ol, .card ul { margin: 0; padding-left: 22px; }
+    .card li { margin-bottom: 6px; }
+
+    .dl-btn {
+      display: inline-block;
+      background: var(--brand-dark);
+      color: #fff;
+      border-radius: 999px;
+      padding: 12px 26px;
+      font-weight: 700;
+      font-size: 16px;
+    }
+
+    .dl-btn:hover { text-decoration: none; opacity: 0.92; }
+
+    .note { color: var(--muted); font-size: 14.5px; }
+
+    code {
+      background: var(--brand-soft);
+      border-radius: 6px;
+      padding: 1px 7px;
+      font-size: 0.92em;
+    }
+
+    footer {
+      text-align: center;
+      color: var(--muted);
+      font-size: 13.5px;
+      padding: 0 20px 40px;
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <span class="brand-mark">印</span>
+    <span class="brand">オシテナ</span>
+  </header>
+
+  <main>
+    <h1>オシテナ</h1>
+    <p class="lead">押印欄の点線円をワンクリックで挿入するWordアドイン。図形メニューから楕円を選んで、点線にして、サイズを整えて……の作業をなくします。</p>
+
+    <div class="card">
+      <h2>できること</h2>
+      <ul>
+        <li>カーソル位置に押印欄（点線・破線・実線の円）を挿入</li>
+        <li>サイズは印鑑の規格でプリセット（認印10.5㎜〜法人実印18㎜、自由入力も可）</li>
+        <li>円の中の文字（印・㊞・実印・捨印など）と色・線の太さを選択</li>
+        <li>捨印欄用に複数個を横並びで一括挿入</li>
+        <li>挿入されるのはWord標準の図形。あとからドラッグ・削除も自由</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h2>試してみる（テスト版の導入）</h2>
+      <p><a class="dl-btn" href="manifest.xml" download="oshitena-manifest.xml">マニフェストをダウンロード</a></p>
+      <p style="margin-top:14px"><strong>Word on the web（ブラウザ版）で試す場合：</strong></p>
+      <ol>
+        <li>ブラウザでWord文書を開く</li>
+        <li>「アドイン」→「その他のアドイン」→「マイ アドイン」タブ →「マイ アドインのアップロード」</li>
+        <li>ダウンロードしたマニフェストファイルを選択</li>
+      </ol>
+      <p style="margin-top:14px"><strong>デスクトップ版Word（Windows）で試す場合：</strong></p>
+      <p>共有フォルダーカタログへの登録、またはMicrosoft 365管理センターからの展開が必要です（詳細は<a href="https://learn.microsoft.com/ja-jp/office/dev/add-ins/testing/test-debug-office-add-ins">Microsoftのドキュメント</a>参照）。</p>
+      <p class="note">正式公開後はMicrosoft AppSource（Officeの「アドインを入手」）から誰でも追加できるようになる予定です。</p>
+    </div>
+
+    <div class="card">
+      <h2>注意</h2>
+      <p class="note">このアドインは押印欄（目印の円）を作るためのもので、印影そのものを作成・複製するものではありません。動作にはインターネット接続と、アドイン対応のWord（Word 2016以降 / Microsoft 365 / Word on the web）が必要です。</p>
+    </div>
+  </main>
+
+  <footer>
+    オシテナ（試作版） ·
+    <a href="https://github.com/kenji-latm/toshitena">GitHub</a>
+  </footer>
+</body>
+</html>
