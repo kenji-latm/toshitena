@@ -2,6 +2,7 @@
   "name": "toshitena",
   "private": true,
   "scripts": {
-    "scrape": "node --use-system-ca scraper/update-from-moj.js"
+    "scrape": "node --use-system-ca scraper/update-from-moj.js",
+    "build:blog": "node scripts/build-blog.js"
   }
 }

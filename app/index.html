@@ -103,6 +103,12 @@
       background: #f9f9fb;
     }
 
+    .topbar-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
     main {
       width: min(1120px, calc(100% - 36px));
       margin: 44px auto 64px;
@@ -674,7 +680,10 @@
       <div class="brand-mark" aria-hidden="true">IL</div>
       <div>ISHIMOTO Legal</div>
     </div>
-    <a class="source-link" href="https://www.moj.go.jp/MINJI/minji60.html" target="_blank" rel="noreferrer">法務省の原典を見る</a>
+    <div class="topbar-links">
+      <a class="source-link" href="blog/index.html">実務コラム</a>
+      <a class="source-link" href="https://www.moj.go.jp/MINJI/minji60.html" target="_blank" rel="noreferrer">法務省の原典を見る</a>
+    </div>
   </header>
 
   <main>
