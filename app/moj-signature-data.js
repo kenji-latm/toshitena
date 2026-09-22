@@ -1,6 +1,6 @@
 // Generated from https://www.moj.go.jp/MINJI/minji60.html
-// Updated at 2026-09-21 15:31
-window.MOJ_SIGNATURE_DATA_UPDATED_AT = "2026-09-21 15:31";
+// Updated at 2026-09-22 15:20
+window.MOJ_SIGNATURE_DATA_UPDATED_AT = "2026-09-22 15:20";
 window.MOJ_SIGNATURE_OTHER_SERVICES = [
   {
     "name": "Adobe Acrobat Sign",
